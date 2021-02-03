@@ -63,13 +63,19 @@ fi
 RESOLUTION="1920x1080"
 if [ "${BBB_RESOLUTION}" != "" ]
 then
-   RESOLUTION="${BBB_RESOLUTION}"
+   RESOLUTION="${BBB_RESOLUTION}";
 fi
 
 DEV_SHM_USAGE="";
 if [ "${BROWSER_DISABLE_DEV_SHM_USAGE}" = "true" ]
 then
-   DEV_SHM_USAGE='--browser-disable-dev-shm-usage'
+   DEV_SHM_USAGE='--browser-disable-dev-shm-usage';
+fi
+
+VIEW_LINK="";
+if [ "${BBB_VIEW_LINK}" != "" ]
+then
+   VIEW_LINK="-v ${BBB_VIEW_LINK}";
 fi
 
 if [ "${BBB_ENABLE_CHAT}" = "true" ]
@@ -78,4 +84,4 @@ then
    sleep 10
 fi 
 
-xvfb-run -n 122 --server-args="-screen 0 ${RESOLUTION}x24" python3 stream.py -s ${BBB_URL} -p ${BBB_SECRET} -i "${BBB_MEETING_ID}" -u "${BBB_USER_NAME}" -r "${RESOLUTION}" ${SHOW_CHAT} $START_MEETING $ATTENDEE_PASSWORD $MODERATOR_PASSWORD $DEV_SHM_USAGE -T "$MEETING_TITLE" $STREAM_MEETING $INTRO $BEGIN_INTRO $END_INTRO $DOWNLOAD_MEETING;
+xvfb-run -n 122 --server-args="-screen 0 ${RESOLUTION}x24" python3 stream.py -s ${BBB_URL} -p ${BBB_SECRET} -i "${BBB_MEETING_ID}" -u "${BBB_USER_NAME}" -r "${RESOLUTION}" ${SHOW_CHAT} $START_MEETING $ATTENDEE_PASSWORD $MODERATOR_PASSWORD $DEV_SHM_USAGE -T "$MEETING_TITLE" $STREAM_MEETING $INTRO $BEGIN_INTRO $END_INTRO $DOWNLOAD_MEETING $VIEW_LINK;
